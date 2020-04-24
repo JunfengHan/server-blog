@@ -12,8 +12,8 @@ export class Mongo implements OnApplicationShutdown {
 	}
 
 	constructor(
-		@Inject('REDIS_CLIENT') readonly redis: any,
-		@Inject('MONGO_CONNECTION') readonly connection: Connection
+		@Inject('MONGO_CONNECTION')
+		readonly connection: Connection
 	) {}
 
 	GetModel(entity: any): MongoRepository<any> {
