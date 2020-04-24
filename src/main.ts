@@ -1,9 +1,22 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import * as cookieParser from 'cookie-parser';
+import * as bodyParser from 'body-parser';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(3001);
-  console.log("nest server running on port:", 3001);
+  app.use(cookieParser());
+  app.use(bodyParser.json());
+
+  const options = new DocumentBuilder()
+    .setTitle('Blog')
+    .setDescription('Blog Api Doc')
+    .setVersion('0.1')
+    .build();
+  const document = SwaggerModule.createDocument(app, options);
+  SwaggerModule.setup('docs', app, document);
+
+  await app.listen(process.env.PORT || 3001);
 }
 bootstrap();
