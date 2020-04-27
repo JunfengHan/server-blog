@@ -16,8 +16,6 @@ export class BussConf {
     this.mongoUri = 'mongodb://{{HOST}}/{{DB}}'
     .replace('{{HOST}}', this.env.get("MONGO_HOST"))
     .replace('{{DB}}', this.env.get("MONGO_DATABASE"));
-    
-    Logger.log('MongoUri', this.mongoUri);
   }
 
   GetMongoUri(): string {
