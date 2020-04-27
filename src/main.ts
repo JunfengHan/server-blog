@@ -9,6 +9,11 @@ async function bootstrap() {
   app.use(cookieParser());
   app.use(bodyParser.json());
 
+  // 允许本地3000 端口跨域
+  app.enableCors({
+    origin: 'http://localhost:3000'
+  });
+
   const options = new DocumentBuilder()
     .setTitle('Blog')
     .setDescription('Blog Api Doc')
