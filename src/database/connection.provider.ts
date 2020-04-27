@@ -2,13 +2,14 @@
  * Mongodb 数据库连接
  */
 import { createConnection } from 'typeorm';
-import { Logger, Module } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 import { BussConf } from '../config/buss-conf';
 const logger = new Logger('connection.provider');
+import { DATABASE_CONNECTION } from 'src/config/constants-conf';
 
-// 工厂提供者，useFactory 语法允许根据参数动态创建provider
-const mongoConnection = {
-  provide: "MONGO_CONNECTION",
+// 工厂提供者，useFactory 语法允许根据参数动态创建 provider
+export const DatabaseConnection = {
+  provide: DATABASE_CONNECTION,
   useFactory: async (conf: BussConf) => {
     const conn = await createConnection({
       type: 'mongodb',
@@ -29,11 +30,6 @@ const mongoConnection = {
 
     return conn;
   },
-  inject: [BussConf]
+  inject: [ BussConf ]
 }
 
-@Module({
-  providers: [ mongoConnection ],
-  exports: [ 'MONGO_CONNECTION' ],
-})
-export class MongoConnection {}

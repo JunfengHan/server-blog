@@ -3,19 +3,18 @@
  */
 import { HttpModule, Module } from '@nestjs/common';
 import { Mongo } from './mongo';
-import { MongoConnection } from './connection.provider';
+import { DatabaseConnection } from './connection.provider';
 import { ConfigModule } from '../config/config.module';
 
 @Module({
-  imports: [ HttpModule, ConfigModule],
+  imports: [ HttpModule, ConfigModule ],
   providers: [
     Mongo,
-    MongoConnection,
+    DatabaseConnection,
   ],
   exports: [
     Mongo,
-    MongoConnection,
-    "MONGO_CONNECTION",
+    DatabaseConnection,
   ]
 })
 export class DatabaseModule {

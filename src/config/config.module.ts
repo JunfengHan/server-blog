@@ -15,7 +15,6 @@ const envFile = ENV_PATH + (process.env.CONF_FILE || 'data.env');
     },
     BussConf,
   ],
-  exports: [EnvService, BussConf,]
+  exports: [ EnvService, BussConf, ]
 })
-
 export class ConfigModule {}

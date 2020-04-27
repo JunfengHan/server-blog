@@ -1,18 +1,26 @@
 // 定义 mongo 基本查询方法
-import { Inject, Injectable, Logger, OnApplicationShutdown } from '@nestjs/common';
+import { Inject, Injectable, Logger, OnApplicationShutdown, Module } from '@nestjs/common';
 import { Connection, MongoEntityManager, MongoRepository } from 'typeorm';
 import { SessionDto } from '../dto';
+import { EnvService } from 'src/config/env.service';
+import { BussConf } from 'src/config/buss-conf';
+import { ConfigModule } from 'src/config/config.module';
+import { DatabaseConnection } from './connection.provider';
+import { DATABASE_CONNECTION } from 'src/config/constants-conf';
 
 @Injectable()
+@Module({
+	providers: [ EnvService, ConfigModule, BussConf, DatabaseConnection ]
+})
 export class Mongo implements OnApplicationShutdown {
 	logger = new Logger(Mongo.name);
 	onApplicationShutdown(sig: string) {
-		this.logger.log('Application Showdown; Mongo Close');
+		this.logger.log('Application Showdown; Mongo Close:', sig);
 		this.connection.close();
 	}
 
 	constructor(
-		@Inject('MONGO_CONNECTION')
+		@Inject(DATABASE_CONNECTION)
 		readonly connection: Connection
 	) {}
 
