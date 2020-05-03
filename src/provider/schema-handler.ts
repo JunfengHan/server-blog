@@ -1,11 +1,13 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Mongo } from '../database/mongo';
 import { BLOGException } from '../exception/blog-exception.filter';
 
 @Injectable()
 export class SchemaHandler {
 	private readonly logger = new Logger(SchemaHandler.name);
-	constructor(readonly mongo: Mongo) {}
+	constructor(
+		readonly mongo: Mongo
+	) {}
 	
 	/**
 	 * 检查名称是否已存在
