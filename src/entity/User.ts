@@ -9,6 +9,12 @@ export class UserEntity extends BaseEntity{
 	
 	@Column()
 	Phone: number;
+
+	@Column()
+	Password: string
+
+	@Column()
+	Email: string
 	
 	@Column({
 		type: "enum",
